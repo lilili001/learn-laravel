@@ -1,0 +1,1 @@
+<li>{{$notification->data['title']}}</li>

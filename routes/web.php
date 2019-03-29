@@ -1,18 +1,14 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Facades\App\Services\Weibo;
 \Illuminate\Support\Facades\Auth::loginUsingId(1);
+
 Route::get('/', function () {
-    return view('welcome');
+     //Weibo::publish(1);
+    \App\Post::create([
+        'title' => 'post title',
+        'body'  => 'post body'
+    ]);
+    //return view('welcome');
 });
 
 Route::get('auth/login','Auth\LoginController@showLoginForm');
@@ -39,7 +35,17 @@ Route::get('users',function (){
 Route::get('notifications',function (){
     $user = \App\User::find(1);
     $post = \App\Post::find(1);
-    $res = $user->notify(new \App\Notifications\PostPublished($post));
-    Auth::user()->unreadNotifications->markAsRead();
+    //$res = $user->notify(new \App\Notifications\PostPublished($post));
+    //Auth::user()->unreadNotifications->markAsRead();
     //Mail::to($user->email)->send(new \App\Mail\welcomeToAsty($user));
+
+    Mail::to($user )->send(new \App\Mail\LessonPublished($user));
+
+});
+
+Route::get('collection',function (){
+    $posts = \App\Post::all();
+    return $posts->map(function($post){
+        return $post->title;
+    });
 });

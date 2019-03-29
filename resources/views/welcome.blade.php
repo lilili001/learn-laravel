@@ -36,6 +36,9 @@
                     @include('notifications.'.snake_case(class_basename($notification->type)))
                 @endforeach
             </ul>
+
+            {{$a ?? 'a'}}
+
         </div>
     </div>
 @stop
