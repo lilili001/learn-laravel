@@ -26,6 +26,6 @@ class PostWasPublishedListener
      */
     public function handle(PostWasPublished $event)
     {
-        dump('A post was published again');
+        dump('A post was published again: ' . $event->post->title);
     }
 }
