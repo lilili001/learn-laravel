@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\LogInfo;
+use App\Console\Commands\ShowGreet;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ShowGreet::class,
+        LogInfo::class
     ];
 
     /**
@@ -26,6 +29,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('lesson:log')->everyMinute();
+            //->dailyAt("12::00");
     }
 
     /**
