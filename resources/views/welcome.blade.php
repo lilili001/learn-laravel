@@ -29,6 +29,13 @@
                 <a href="https://forge.laravel.com">Forge</a>
                 <a href="https://github.com/laravel/laravel">GitHub</a>
             </div>
+
+            <h1>我的通知</h1>
+            <ul>
+                @foreach( \Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification )
+                    @include('notifications.'.snake_case(class_basename($notification->type)))
+                @endforeach
+            </ul>
         </div>
     </div>
 @stop
